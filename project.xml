@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+
+	<meta title="Verbal" package="org.jarnik.verbal" version="0.1.0" company="jarnik" />
+	<app main="Main" path="bin" file="verbal" />
+	
+	<window width="640" height="480" fps="60" orientation="landscape" fullscreen="false"/>
+
+	<source path="src" />
+
+	<haxelib name="openfl" />
+	<assets path="assets"/>
+
+</project>
