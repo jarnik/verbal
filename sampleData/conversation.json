@@ -1,0 +1,12 @@
+[
+   {"actions":["So you're finally awake!","Can you move your hands?"],"global":null,"group":null,"id":0,"links":[1],"x":304,"y":-541},
+   {"global":null,"group":true,"id":1,"links":[2,3,4],"x":311,"y":-275},
+   {"actions":["Cool. Your motoric functions seem to be OK then.","Now let's check your memory.","What's your name?","#playerName = \"\""],"conds":["#inputYes()"],"global":null,"group":null,"id":2,"links":[6],"x":410,"y":-128},
+   {"actions":["OK, just a sec...","And now? Is it better?"],"conds":["#inputNo()"],"global":null,"group":null,"id":3,"links":[1],"x":172,"y":-130},
+   {"actions":["Simple question - can you move your hands? Yes or no?"],"global":null,"group":null,"id":4,"links":[1],"x":-48,"y":-125},
+   {"actions":["#playerName = getInput()","So your name is {#playerName}. Correct?"],"conds":[".+","#playerName = \"\""],"global":null,"group":null,"id":6,"links":[5],"x":652,"y":357},
+   {"global":null,"group":true,"id":5,"links":[7,8,9],"x":958,"y":168},
+   {"actions":["So what's your name?","#playerName = \"\""],"conds":["#inputNo()"],"global":null,"group":null,"id":7,"links":[6],"x":886,"y":359},
+   {"actions":["Cool. Welcome back, {#playerName}!"],"conds":["#inputYes()"],"global":null,"group":null,"id":8,"x":1407,"y":681},
+   {"actions":["Are you {#playerName}? Yes or no?!"],"global":null,"group":null,"id":9,"links":[5],"x":1150,"y":358}
+]
