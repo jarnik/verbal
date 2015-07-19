@@ -2,7 +2,7 @@ package;
 
 import openfl.display.Sprite;
 
-class Main extends Sprite
+class SampleVerbal extends Sprite
 {
 
 	public function new ()
