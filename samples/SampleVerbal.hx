@@ -1,6 +1,9 @@
-package;
+package samples;
 
 import openfl.display.Sprite;
+
+import verbal.VerbalData;
+import verbal.VerbalIntFic;
 
 class SampleVerbal extends Sprite
 {
@@ -10,9 +13,14 @@ class SampleVerbal extends Sprite
 		super ();
 
 		var conversation:VerbalIntFic = new VerbalIntFic(
-			VerbalData.loadFromFile("sampleData/conversation.json")
-		)
+			VerbalData.loadFromJSON(
+				openfl.Assets.getText("sampleData/conversation.json")
+			)
+		);
 
+		conversation.onInput("kokodak");
+		conversation.onInput("#inputYes()");
+		conversation.onInput("jarnik");
 	}
 
 }
