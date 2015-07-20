@@ -5,7 +5,7 @@
 
 	<app main="samples.SampleVerbal" path="bin" file="verbal" />
 
-	<window width="640" height="480" fps="60" orientation="landscape" fullscreen="false"/>
+	<window background="#000" width="640" height="480" fps="30" orientation="landscape" fullscreen="false"/>
 
 	<source path="verbal" />
 	<source path="samples" />

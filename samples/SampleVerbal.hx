@@ -3,24 +3,42 @@ package samples;
 import openfl.display.Sprite;
 
 import verbal.VerbalData;
-import verbal.VerbalIntFic;
+import verbal.VerbalTree;
 
 class SampleVerbal extends Sprite
 {
+
+	private var ui:VerbalTreeOpenFL;
+	private var conversation:VerbalTree;
 
 	public function new ()
 	{
 		super ();
 
-		var conversation:VerbalIntFic = new VerbalIntFic(
-			VerbalData.loadFromJSON(
-				openfl.Assets.getText("sampleData/conversation.json")
-			)
+		this.conversation = new VerbalTree(
+			VerbalData.loadFromJSON(openfl.Assets.getText("sampleData/monkey.json")),
+			this.onShowNode
 		);
+		this.addChild(this.ui = new VerbalTreeOpenFL(
+			this.onContinueClicked,
+			this.onAnswerSelected
+		));
+		this.conversation.start();
+	}
 
-		conversation.onInput("kokodak");
-		conversation.onInput("#inputYes()");
-		conversation.onInput("jarnik");
+	private function onShowNode(text:String, answers:Array<String>) : Void
+	{
+		this.ui.show(text,answers);
+	}
+
+	private function onContinueClicked() : Void
+	{
+		this.conversation.onContinue();
+	}
+
+	private function onAnswerSelected(index:Int) : Void
+	{
+		this.conversation.onAnswerSelected(index);
 	}
 
 }
