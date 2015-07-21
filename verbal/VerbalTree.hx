@@ -18,7 +18,7 @@ class VerbalTree
 
     public function start():Void
     {
-        this.onShowNodeCallback("HEY!",["AAA","BBB","CCC"]);
+        this.onShowNodeCallback("What the heck?! You scared me to death!",["AAA","BBB","CCC"]);
     }
 
     public function onContinue() : Void
