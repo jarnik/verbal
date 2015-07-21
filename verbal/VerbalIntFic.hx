@@ -5,16 +5,23 @@ class VerbalIntFic
 
 	private var data : VerbalData = null;
 	private var currentNode:Int = -1;
-	private var input:String = "";
 
-	public function new(data:VerbalData) : Void
+	private var testConditionCallback:String -> Bool;
+	private var runActionCallback:String -> Void;
+
+	public function new(
+		data:VerbalData,
+		testConditionCallback:String -> Bool,
+		runActionCallback:String -> Void
+	) : Void
 	{
 		this.data = data;
+		this.testConditionCallback = testConditionCallback;
+		this.runActionCallback = runActionCallback;
 	}
 
-	public function onInput(input:String):Void
+	public function step():Void
 	{
-    	this.input = input;
 		var nextNode:VerbalNode = getNextNode(this.currentNode,false);
     	if (nextNode == null)
     	{
@@ -53,7 +60,7 @@ class VerbalIntFic
 		return nextNode;
 	}
 
-	private function getNextNode(id:Int,testInput:Bool):VerbalNode
+	private function getNextNode(id:Int,testConds:Bool):VerbalNode
 	{
     	var nextNode:VerbalNode = null;
 		if (id == -1)
@@ -70,9 +77,9 @@ class VerbalIntFic
 			{
 				return null;
 			}
-			if (!testInput || canEnterNode(node))
+			if (!testConds || canEnterNode(node))
 			{
-				if (testInput && !node.group)
+				if (testConds && !node.group)
 				{
 					return node;
 				}
@@ -112,12 +119,20 @@ class VerbalIntFic
  	// override this method to add custom code testing etc.
 	private function testCondition(cond:String) : Bool
 	{
-		return (new EReg(cond,"i")).match(this.input);
+		if (this.testConditionCallback != null)
+		{
+			return this.testConditionCallback(cond);
+		}
+		return true;
 	}
 
 	// override this method to add custom code testing etc.
 	private function runAction(action:String) : Void
 	{
 		trace("ACTION: "+action);
+		if (this.runActionCallback != null)
+		{
+			this.runActionCallback(action);
+		}
 	}
 }
