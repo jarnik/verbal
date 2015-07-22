@@ -7,6 +7,10 @@
 
 	<window background="#000" width="640" height="480" fps="30" orientation="landscape" fullscreen="false"/>
 
+	<!--
+	<set name="legacy" if="neko" />
+	-->
+
 	<source path="verbal" />
 	<source path="samples" />
 

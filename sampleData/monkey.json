@@ -1,6 +1,9 @@
 [
-   {"actions":["What the heck?! You scared me to death!"],"id":0,"links":[1,2,-1],"x":55,"y":78},
-   {"conds":["My name is Mancomb Seepwood and I want to be a salesman!"],"id":1,"x":58,"y":256},
-   {"conds":["I am looking for a nearest treasure. Seen any lately?"],"id":2,"x":58,"y":457},
-   {"conds":["Can you teach me how to use a sword? "],"id":3,"x":297,"y":256}
+   {"actions":["What the heck?! You s\ncared me to death! xxxx siadja isjdklasj dklajskldj aklsjdklajd kasjlksjklj","You should be more careful with elderly people, son!"],"global":null,"group":null,"id":0,"links":[1],"x":55,"y":0},
+   {"actions":["So what do you want?"],"id":1,"links":[2,4,5,3],"x":336,"y":6},
+   {"conds":["My name is Mancomb Seepwood and I want to be a salesman!"],"id":2,"links":[6],"x":280,"y":284},
+   {"conds":["I will be going."],"id":3,"x":917,"y":318},
+   {"conds":["Can you teach me how to use a sword? "],"id":4,"links":[6],"x":541,"y":330},
+   {"conds":["Can I try again, please? "],"id":5,"links":[0],"x":743,"y":35},
+   {"actions":["Well, good luck with that."],"id":6,"x":340,"y":526}
 ]

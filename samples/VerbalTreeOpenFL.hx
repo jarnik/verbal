@@ -46,8 +46,8 @@ class VerbalTreeOpenFL extends Sprite
 		textField.selectable = false;
 		textField.x = 10;
 		textField.y = 10;
-		textField.width = 600;
-		textField.height = 200;
+		textField.width = 620;
+		textField.height = 100;
 		textField.wordWrap = true;
 		textField.multiline = true;
         this.addChild(textField);
@@ -62,6 +62,37 @@ class VerbalTreeOpenFL extends Sprite
         return textField;
     }
 
+    private function hideAllAnswers() : Void
+    {
+        for (answer in this.answerFields)
+        {
+            answer.visible = false;
+        }
+    }
+
+    private function setAnswerField(index:Int, offset:Float, text:String) : Float
+    {
+        var answer:TextField;
+        if (index >= this.answerFields.length)
+        {
+            answer = createTextfield(true);
+            this.answerFields.push(answer);
+        } else
+        {
+            answer = this.answerFields[index];
+        }
+
+        answer.visible = true;
+        answer.x = 32;
+        answer.y = offset;
+        answer.textColor = COLOR_ANSWER;
+        answer.text = text;
+        answer.height = answer.textHeight + 10;
+        offset += answer.height;
+
+        return offset;
+    }
+
     public function show(text:String,answers:Array<String>):Void
     {
         this.text.text = text;
@@ -69,23 +100,20 @@ class VerbalTreeOpenFL extends Sprite
 
         var offset:Float = this.text.y + this.text.height + 24;
 
+        hideAllAnswers();
+
         var answer:TextField;
-        for (i in 0...answers.length)
+        if (answers == null)
         {
-            if (i >= this.answerFields.length)
+            // show continue button
+            setAnswerField(0, offset, "(continue)");
+        } else
+        {
+            // show answers
+            for (i in 0...answers.length)
             {
-                answer = createTextfield(true);
-                this.answerFields.push(answer);
-            } else
-            {
-                answer = this.answerFields[i];
+                offset = setAnswerField(i, offset, answers[i]);
             }
-            answer.x = 32;
-            answer.y = offset;
-            answer.textColor = COLOR_ANSWER;
-            answer.text = answers[i];
-            answer.height = answer.textHeight;
-            offset += answer.height;
         }
     }
 
@@ -99,8 +127,8 @@ class VerbalTreeOpenFL extends Sprite
                 cast(e.target,TextField).textColor = COLOR_ANSWER;
             case MouseEvent.CLICK:
                 var answerID:Int = getAnswerTextFieldID(cast(e.target,TextField));
-                this.onAnswerSelected(answerID);
                 trace("clicked "+answerID);
+                this.onAnswerSelected(answerID);
         }
     }
 
