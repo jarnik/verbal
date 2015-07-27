@@ -7,7 +7,10 @@ import openfl.display.Bitmap;
 import openfl.display.Sprite;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
+import openfl.events.Event;
 import openfl.events.MouseEvent;
+import openfl.events.KeyboardEvent;
+import openfl.ui.Keyboard;
 
 class VerbalTreeOpenFL extends Sprite
 {
@@ -22,10 +25,13 @@ class VerbalTreeOpenFL extends Sprite
     private var text : TextField;
     private var answerFields : Array<TextField>;
 
+    private var windowWidth:Float = 640;
+
     // UI
     private var window : Bitmap;
     private var optionPointer : Bitmap;
     private var selectedOption : Int = 0;
+    private var optionCount : Int = 0;
 
 	public function new (
         onContinueCallback : Void->Void,
@@ -49,13 +55,44 @@ class VerbalTreeOpenFL extends Sprite
         this.text = createTextfield();
         this.text.textColor = COLOR_TEXT;
         this.answerFields = [];
+
+        this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 	}
+
+    private function onAddedToStage(e:Event) : Void
+    {
+        this.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+    }
+
+    private function onKeyDown(e:KeyboardEvent) : Void
+    {
+        switch (e.keyCode)
+        {
+            case Keyboard.DOWN:
+                stepOptionSelected(1);
+            case Keyboard.UP:
+                stepOptionSelected(-1);
+            case Keyboard.ENTER, Keyboard.SPACE:
+                this.onAnswerSelected(this.selectedOption);
+        }
+    }
+
+    private function stepOptionSelected(step:Int) : Void
+    {
+        if (
+            this.selectedOption + step >= 0 &&
+            this.selectedOption + step < this.optionCount
+        )
+        {
+            setOptionSelected(this.selectedOption + step);
+        }
+    }
 
     private function setOptionSelected(index:Int) : Void
     {
+        this.selectedOption = index;
         if (index >= 0)
         {
-            trace("focus "+index);
             this.optionPointer.visible = true;
             this.optionPointer.x = this.answerFields[index].x;
             this.optionPointer.y = this.answerFields[index].y + this.answerFields[index].textHeight / 2;
@@ -75,10 +112,10 @@ class VerbalTreeOpenFL extends Sprite
 		textField.embedFonts = true;
 		// textField.antiAliasType = openfl.text.AntiAliasType;
 		textField.selectable = false;
-        var margin:Float = 15;
+        var margin:Float = 16;
 		textField.x = margin;
 		textField.y = margin;
-		textField.width = 640 - 2*margin;
+		textField.width = this.windowWidth - 2*margin;
 		textField.height = 160 - 2*margin;
 		textField.wordWrap = true;
 		textField.multiline = true;
@@ -115,7 +152,8 @@ class VerbalTreeOpenFL extends Sprite
         }
 
         answer.visible = true;
-        answer.x = 32;
+        answer.x = 48;
+        answer.width = this.windowWidth - answer.x - 15;
         answer.y = offset;
         answer.textColor = COLOR_ANSWER;
         answer.text = text;
@@ -130,7 +168,7 @@ class VerbalTreeOpenFL extends Sprite
         this.text.text = text;
         this.text.height = this.text.textHeight;
 
-        var offset:Float = this.text.y + this.text.height + 4;
+        var offset:Float = this.text.y + this.text.height + 16;
 
         hideAllAnswers();
 
@@ -139,6 +177,7 @@ class VerbalTreeOpenFL extends Sprite
         {
             // show continue button
             setAnswerField(0, offset, "(continue)");
+            this.optionCount = 0;
         } else
         {
             // show answers
@@ -146,6 +185,7 @@ class VerbalTreeOpenFL extends Sprite
             {
                 offset = setAnswerField(i, offset, answers[i]);
             }
+            this.optionCount = answers.length;
         }
         setOptionSelected(0);
     }
@@ -162,7 +202,6 @@ class VerbalTreeOpenFL extends Sprite
                 cast(e.target,TextField).textColor = COLOR_ANSWER;
             case MouseEvent.CLICK:
                 var answerID:Int = getAnswerTextFieldID(cast(e.target,TextField));
-                trace("clicked "+answerID);
                 this.onAnswerSelected(answerID);
         }
     }
