@@ -15,6 +15,7 @@
 	<source path="samples" />
 
 	<haxelib name="openfl" />
+	<haxelib name="hscript" />
 	<assets path="sampleData"/>
 
 </project>

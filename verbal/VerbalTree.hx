@@ -6,22 +6,29 @@ class VerbalTree
 	private var currentNode:Int = -1;
 	private var currentAction:Int = -1;
     private var onShowNodeCallback: String->Array<String>->Void;
+    private var onTestCondCallback: String->Bool;
+    private var onNodeEnteredCallback: Int->Void;
     private var nextLinks:Array<Int>;
     private var showingAnswers : Bool = false;
 
 	public function new(
         data:VerbalData,
-        onShowNodeCallback: String->Array<String>->Void
+        onShowNodeCallback: String->Array<String>->Void,
+        onTestCondCallback: String->Bool = null,
+        onNodeEnteredCallback: Int->Void = null
     ) : Void
 	{
 		this.data = data;
         this.onShowNodeCallback = onShowNodeCallback;
+        this.onTestCondCallback = onTestCondCallback;
+        this.onNodeEnteredCallback = onNodeEnteredCallback;
 	}
 
     public function start():Void
     {
         //this.onShowNodeCallback("What the heck?! You scared me to death!",["AAA","BBB","CCC"]);
         this.currentNode = 0;
+        onNodeEntered(this.currentNode);
         this.currentAction = -1;
         onContinue();
     }
@@ -43,6 +50,7 @@ class VerbalTree
             trace("following link to "+this.nextLinks[answerIndex]);
             this.currentNode = this.nextLinks[answerIndex];
             this.currentAction = -1;
+            onNodeEntered(this.currentNode);
 
             if (this.showingAnswers)
             {
@@ -56,6 +64,7 @@ class VerbalTree
                 }
                 trace("skip answer to next node "+nextNodeIDs[0]);
                 this.currentNode = nextNodeIDs[0];
+                onNodeEntered(this.currentNode);
             }
         }
         var node:VerbalNode = data.getNode(this.currentNode);
@@ -100,7 +109,14 @@ class VerbalTree
 
         // action with continue
         this.onShowNodeCallback(node.actions[this.currentAction], answers);
+    }
 
+    private function onNodeEntered(node:Int) : Void
+    {
+        if (this.onNodeEnteredCallback != null)
+        {
+            this.onNodeEnteredCallback(node);
+        }
     }
 
     public function onAnswerSelected(index:Int) : Void
@@ -112,13 +128,46 @@ class VerbalTree
     {
         var nodes:Array<Int> = [];
         var node:VerbalNode = data.getNode(nodeID);
+        var linkedNode:VerbalNode;
+        var linkedNodes:Array<Int>;
+        var condsValid:Bool;
 
         if (node.links != null)
         {
             for (link in node.links)
             {
-                // TODO test conds, handle groups
-                nodes.push(link);
+                linkedNode = data.getNode(link);
+                if (linkedNode == null)
+                {
+                    continue;
+                }
+
+                if (this.onTestCondCallback != null && linkedNode.conds != null)
+                {
+                    condsValid = true;
+                    for (cond in linkedNode.conds)
+                    {
+                        if (!this.onTestCondCallback(cond))
+                        {
+                            condsValid = false;
+                            break;
+                        }
+                    }
+                    if (!condsValid)
+                    {
+                        continue;
+                    }
+                }
+
+                if (linkedNode.group)
+                {
+                    linkedNodes = getNextNodes(link);
+                    trace("adding group "+link+" links "+linkedNodes.length);
+                    nodes = nodes.concat( linkedNodes );
+                } else
+                {
+                    nodes.push(link);
+                }
             }
         }
 
