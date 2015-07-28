@@ -1,5 +1,5 @@
 [
-   {"actions":["What the heck?! You s\ncared me to death! xxxx siadja isjdklasj dklajskldj aklsjdklajd kasjlksjklj","You should be more careful with elderly people, son!"],"global":null,"group":null,"id":0,"links":[1],"x":55,"y":0},
+   {"actions":["What the heck?! You scared me to death! xxxx siadja isjdklasj dklajskldj aklsjdklajd kasjlksjklj","You should be more careful with elderly people, son!"],"global":null,"group":null,"id":0,"links":[1],"x":55,"y":0},
    {"actions":["So what do you want?"],"id":1,"links":[2,4,5,3],"x":336,"y":6},
    {"conds":["My name is Mancomb Seepwood and I want to be a salesman!"],"id":2,"links":[6],"x":280,"y":284},
    {"conds":["I will be going."],"id":3,"x":917,"y":318},
