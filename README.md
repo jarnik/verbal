@@ -20,7 +20,7 @@ screenshot - example tree dialogue
 
 ### Editor ###
 
-screenshot-editor
+![Verbal editor](sampleData/screenshot_verbalEdit.png)
 
 Available for Linux, Windows, Mac, also as a Flash app.
 
