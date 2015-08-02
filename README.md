@@ -1,5 +1,5 @@
-# verbal
-node-based conversation lib and editor
+# Verbal
+node-based conversation tool
 
 ```json
 [
@@ -16,7 +16,7 @@ Supported: OpenFL
 
 Planned: HaxeFlixel, Unity, ? LOVE, ? GameMaker
 
-screenshot-tree dialogue, screenshot-input dialogue
+screenshot - example tree dialogue
 
 ### Editor ###
 
