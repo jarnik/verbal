@@ -10,7 +10,13 @@ node-based conversation tool
 ]
 ```
 
-### Platforms ###
+### How it works ###
+
+Use the editor to create the conversation and export it to a JSON file.
+Then load the JSON into your game using the library.
+It's up to you to interpret the data, but there are some examples that you can use as a base: Conversation tree, Interactive fiction.
+
+### Library platforms ###
 
 Supported: OpenFL
 
@@ -18,12 +24,10 @@ Planned: HaxeFlixel, Unity, ? LOVE, ? GameMaker
 
 screenshot - example tree dialogue
 
-### Editor ###
+### Editor (alpha) ###
 
 ![Verbal editor](sampleData/screenshot_verbalEdit.png)
 
-Available for Linux, Windows, Mac, also as a Flash app.
-
-Currently in alpha, get it here:
+Get it here (*Linux*, *Windows*, *Flash*):
 * http://itch.io
 * http://gamejolt.io
