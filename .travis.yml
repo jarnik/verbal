@@ -1,0 +1,6 @@
+language: haxe
+haxe:
+  - development
+  
+script:
+  - haxelib run lime build neko
