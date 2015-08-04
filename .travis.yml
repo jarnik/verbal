@@ -3,9 +3,15 @@ haxe:
   - development
 
 install:
+  - mkdir -p ~/haxelib
+  - haxelib setup ~/haxelib
   - haxelib install lime
   - haxelib install openfl
   - haxelib install hscript
   
 script:
   - haxelib run lime build neko -Dlegacy
+  
+cache:
+  directories:
+    - ~/haxelib
