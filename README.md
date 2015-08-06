@@ -4,7 +4,7 @@ Verbal is a node-based conversation tool. I could not find a simple, flexible, o
 
 ### How it works ###
 
-Use the editor to create the conversation and export it to a JSON file like this:
+Use the [editor](http://jarnik.itch.io/verbal) to create the conversation and export it to a JSON file like this:
 ```json
 [
    {"actions":["So what do you want?"],"id":1,"links":[2,3],"x":336,"y":6},
@@ -24,10 +24,8 @@ Conversation tree example:
 
 ![Tree Conversation Example](exampleData/screenshot_treeExample.png)
 
-### Editor (alpha) ###
+### Editor ###
+
+Get it here (**Linux, Windows, Flash**): http://jarnik.itch.io/verbal
 
 ![Verbal editor](exampleData/screenshot_verbalEdit.png)
-
-Get it here (*Linux*, *Windows*, *Flash*):
-* http://itch.io
-* http://gamejolt.io
