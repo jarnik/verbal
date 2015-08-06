@@ -1,6 +1,7 @@
 # Verbal ![](exampleData/verbal_64.png)
-Verbal is a node-based conversation tool. I could not find a simple, flexible, open conversation tool, so I made one myself. It is meant to be a simple tool for gamejams and smaller projects.
+Verbal is a node-based conversation tool. I could not find a conversation tool that would be simple, flexible and open, so I made one myself. 
 
+It is meant to be a tiny tool for gamejams and smaller projects.
 
 ### How it works ###
 
