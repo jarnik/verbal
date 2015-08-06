@@ -1,6 +1,10 @@
-# Verbal
-node-based conversation tool
+# Verbal ![](exampleData/verbal_64.png)
+Verbal is a node-based conversation tool. I could not find a simple, flexible, open conversation tool, so I made one myself. It is meant to be a simple tool for gamejams and smaller projects.
 
+
+### How it works ###
+
+Use the editor to create the conversation and export it to a JSON file like this:
 ```json
 [
    {"actions":["What the heck?! You scared me to death!"],"id":0,"links":[1,2,-1],"x":55,"y":78},
@@ -9,12 +13,7 @@ node-based conversation tool
    {"conds":["Can you teach me how to use a sword? "],"id":3,"x":297,"y":256}
 ]
 ```
-
-### How it works ###
-
-Use the editor to create the conversation and export it to a JSON file.
-Then load the JSON into your game using the library.
-It's up to you to interpret the data, but there are some examples that you can use as a base: Conversation tree, Interactive fiction.
+Then load the JSON into your game using the library (see the examples) or just interpret the data any way you need.
 
 ### Library platforms ###
 
@@ -22,11 +21,13 @@ Supported: OpenFL
 
 Planned: HaxeFlixel, Unity, ? LOVE, ? GameMaker
 
-screenshot - example tree dialogue
+Conversation tree example:
+
+![Tree Conversation Example](exampleData/screenshot_treeExample.png)
 
 ### Editor (alpha) ###
 
-![Verbal editor](sampleData/screenshot_verbalEdit.png)
+![Verbal editor](exampleData/screenshot_verbalEdit.png)
 
 Get it here (*Linux*, *Windows*, *Flash*):
 * http://itch.io
