@@ -7,10 +7,9 @@ Verbal is a node-based conversation tool. I could not find a simple, flexible, o
 Use the editor to create the conversation and export it to a JSON file like this:
 ```json
 [
-   {"actions":["What the heck?! You scared me to death!"],"id":0,"links":[1,2,-1],"x":55,"y":78},
-   {"conds":["My name is Mancomb Seepwood and I want to be a salesman!"],"id":1,"x":58,"y":256},
-   {"conds":["I am looking for a nearest treasure. Seen any lately?"],"id":2,"x":58,"y":457},
-   {"conds":["Can you teach me how to use a sword? "],"id":3,"x":297,"y":256}
+   {"actions":["So what do you want?"],"id":1,"links":[2,3],"x":336,"y":6},
+   {"conds":["I want to be a pirate!"],"id":2,"links":[6],"x":280,"y":284},
+   {"conds":["Never mind, Im leaving."],"id":3,"x":917,"y":318}
 ]
 ```
 Then load the JSON into your game using the library (see the examples) or just interpret the data any way you need.
