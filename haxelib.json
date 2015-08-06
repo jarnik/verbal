@@ -1,0 +1,11 @@
+{
+	"name": "verbal",
+	"url": "https://github.com/jarnik/lime",
+	"license": "MIT",
+	"tags": [],
+	"description": "node-based conversation tool",
+	"version": "0.1",
+	"releasenote": "alpha",
+	"contributors": [ "jarnik" ],
+	"classPath": [ "haxe" ],
+}
