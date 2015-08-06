@@ -20,7 +20,6 @@
 	<source path="haxe" />
 
 	<haxelib name="hscript" />
-	<haxelib name="verbal" />
 	
 	<assets path="haxe/exampleData" rename="exampleData"/>
 
