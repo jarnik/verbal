@@ -1,4 +1,4 @@
-# Verbal ![](exampleData/verbal_64.png)
+# Verbal ![](images/verbal_64.png)
 Verbal is a node-based conversation tool. I could not find a conversation tool that would be simple, flexible and open, so I made one myself. 
 
 It is meant to be a tiny tool for gamejams and smaller projects.
@@ -23,10 +23,10 @@ Planned: HaxeFlixel, Unity, ? LOVE, ? GameMaker
 
 Conversation tree example:
 
-![Tree Conversation Example](exampleData/screenshot_treeExample.png)
+![Tree Conversation Example](images/screenshot_treeExample.png)
 
 ### Editor ###
 
 Get it here (**Linux, Windows, Flash**): http://jarnik.itch.io/verbal
 
-![Verbal editor](exampleData/screenshot_verbalEdit.png)
+![Verbal editor](images/screenshot_verbalEdit.png)
