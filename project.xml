@@ -3,7 +3,7 @@
 
 	<meta title="Verbal" package="org.jarnik.verbal" version="0.1.0" company="jarnik" />
 
-	<app main="samples.SampleVerbal" path="bin" file="verbal" />
+	<app main="examples.ExampleOpenFL" path="bin" file="verbal" />
 
 	<window background="#000" width="640" height="480" fps="30" orientation="landscape" fullscreen="false"/>
 
@@ -12,10 +12,10 @@
 	<set name="legacy" if="neko" />
 
 	<source path="verbal" />
-	<source path="samples" />
+	<source path="examples" />
 
 	<haxelib name="openfl" />
 	<haxelib name="hscript" />
-	<assets path="sampleData"/>
+	<assets path="exampleData"/>
 
 </project>

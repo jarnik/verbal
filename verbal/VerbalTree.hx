@@ -39,7 +39,7 @@ class VerbalTree
         {
             if (this.nextLinks[answerIndex] == null)
             {
-                trace("THE END!");
+                onConversationEnded();
                 return;
             }
 
@@ -130,7 +130,7 @@ class VerbalTree
                 enterNode(nextNodes[0]);
             } else
             {
-                trace("THE END!");
+                onConversationEnded();
             }
             return;
         }
@@ -182,6 +182,10 @@ class VerbalTree
         // action with continue
         this.onShowNodeCallback(node.actions[this.currentAction], answers);
     }
-
+    
+    private function onConversationEnded() : Void
+    {
+        this.onShowNodeCallback(null, null);
+    }
 
 }

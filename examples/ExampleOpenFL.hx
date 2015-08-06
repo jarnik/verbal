@@ -1,4 +1,4 @@
-package samples;
+package examples;
 
 import verbal.VerbalData;
 import verbal.VerbalTree;
@@ -9,7 +9,7 @@ import hscript.Expr;
 import hscript.Interp;
 import hscript.Parser;
 
-class SampleVerbal extends Sprite
+class ExampleOpenFL extends Sprite
 {
 
 	private var ui:VerbalTreeOpenFL;
@@ -33,7 +33,7 @@ class SampleVerbal extends Sprite
 			this.onAnswerSelected
 		));
 		this.conversation = new VerbalTree(
-			VerbalData.loadFromJSON(openfl.Assets.getText("sampleData/monkey3.json")),
+			VerbalData.loadFromJSON(openfl.Assets.getText("exampleData/tree_example.json")),
 			this.ui.show,
 			this.testCond,
 			this.onNodeEntered

@@ -1,4 +1,4 @@
-package samples;
+package examples;
 
 import verbal.VerbalData;
 import verbal.VerbalTree;
@@ -40,10 +40,10 @@ class VerbalTreeOpenFL extends Sprite
 	{
 		super ();
 
-        this.addChild( this.window = new Bitmap(openfl.Assets.getBitmapData("sampleData/window.png")) );
+        this.addChild( this.window = new Bitmap(openfl.Assets.getBitmapData("exampleData/window.png")) );
         this.window.scaleX = this.window.scaleY = 2;
 
-        this.addChild( this.optionPointer = new Bitmap(openfl.Assets.getBitmapData("sampleData/pointer_option.png")) );
+        this.addChild( this.optionPointer = new Bitmap(openfl.Assets.getBitmapData("exampleData/pointer_option.png")) );
         this.optionPointer.scaleX = this.optionPointer.scaleY = 2;
         setOptionSelected(-1);
 
@@ -66,6 +66,11 @@ class VerbalTreeOpenFL extends Sprite
 
     private function onKeyDown(e:KeyboardEvent) : Void
     {
+        if (!this.visible)
+        {
+            return;
+        }
+        
         switch (e.keyCode)
         {
             case Keyboard.DOWN:
@@ -165,6 +170,13 @@ class VerbalTreeOpenFL extends Sprite
 
     public function show(text:String,answers:Array<String>):Void
     {
+        if (text == null)
+        {
+            // conversation over, hide
+            this.visible = false;
+            return;
+        }
+        
         this.text.text = text;
         this.text.height = this.text.textHeight;
 
