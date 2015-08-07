@@ -1,4 +1,4 @@
-package examples;
+package ;
 
 import verbal.VerbalData;
 import verbal.VerbalTree;
@@ -63,8 +63,9 @@ class ExampleOpenFL extends Sprite
 		cond = cond.substr(1);
         trace("test "+cond);
         var result = this.interpret.execute(this.parser.parseString(cond));
-        trace("= "+result);
-        return cast(result,Bool);
+		var resultBool:Bool = cast(result,Bool);
+        trace("= "+resultBool);
+        return resultBool;
     }
 
     private function onNodeEntered(node:Int) : Void

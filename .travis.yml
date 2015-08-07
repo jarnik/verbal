@@ -11,7 +11,10 @@ install:
   - haxelib install flixel
   
 script:
-  - haxelib run lime build neko -Dlegacy
+  - haxelib run lime build haxe/exampleFlixel neko -Dlegacy
+  - haxelib run lime build haxe/exampleFlixel flash -Dlegacy
+  - haxelib run lime build haxe/exampleOpenFL neko -Dlegacy
+  - haxelib run lime build haxe/exampleOpenFL flash -Dlegacy
   
 cache:
   directories:

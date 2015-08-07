@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+
+	<meta title="Verbal Example" package="org.jarnik.verbal" version="0.1.0" company="jarnik" />
+	<window background="#000" width="640" height="480" fps="30" orientation="landscape" fullscreen="false"/>
+
+	<app main="ExampleOpenFL" path="bin" file="verbalOpenFL" />
+
+	<haxelib name="openfl" />
+	
+	<set name="legacy" if="neko" />
+
+	<source path="." />
+	<source path=".." />
+
+	<haxelib name="hscript" />
+	
+	<assets path="../exampleData" rename="exampleData"/>
+
+</project>

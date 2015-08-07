@@ -1,5 +1,7 @@
 package verbal;
 
+import verbal.VerbalData;
+
 class VerbalTree
 {
     private var data : VerbalData = null;
@@ -37,8 +39,8 @@ class VerbalTree
         // make step
         if (this.nextLinks != null)
         {
-            if (this.nextLinks[answerIndex] == null)
-            {
+            if (answerIndex >= this.nextLinks.length || this.nextLinks[answerIndex] == -1)
+            {                
                 onConversationEnded();
                 return;
             }
@@ -171,7 +173,13 @@ class VerbalTree
             if (answers.length == 0)
             {
                 // no answer links, simple continue hop
-                this.nextLinks = [nextNodeIDs[0]];
+                if (nextNodeIDs.length > 0)
+                {
+                    this.nextLinks = [nextNodeIDs[0]];
+                } else 
+                {
+                    this.nextLinks = [-1]; // will end conversation
+                }
                 answers = null;
             } else
             {
@@ -185,6 +193,7 @@ class VerbalTree
     
     private function onConversationEnded() : Void
     {
+        trace("THE END!");
         this.onShowNodeCallback(null, null);
     }
 

@@ -4,23 +4,16 @@
 	<meta title="Verbal Example" package="org.jarnik.verbal" version="0.1.0" company="jarnik" />
 	<window background="#000" width="640" height="480" fps="30" orientation="landscape" fullscreen="false"/>
 
-
-	<!--
-	<app main="exampleOpenFL.ExampleOpenFL" path="bin" file="verbalOpenFL" />
-	<haxelib name="openfl" />
-	-->
-	
-	<app main="exampleFlixel.ExampleFlixel" path="bin" file="verbalFlixel" />
+	<app main="ExampleFlixel" path="bin" file="verbalFlixel" />
 	<haxelib name="flixel" />
 
-	<!--
-	-->
 	<set name="legacy" if="neko" />
 
-	<source path="haxe" />
+	<source path="." />
+	<source path=".." />
 
 	<haxelib name="hscript" />
 	
-	<assets path="haxe/exampleData" rename="exampleData"/>
+	<assets path="../exampleData" rename="exampleData"/>
 
 </project>

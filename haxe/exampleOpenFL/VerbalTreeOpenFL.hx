@@ -1,4 +1,4 @@
-package examples;
+package ;
 
 import verbal.VerbalData;
 import verbal.VerbalTree;
@@ -96,6 +96,18 @@ class VerbalTreeOpenFL extends Sprite
     private function setOptionSelected(index:Int) : Void
     {
         this.selectedOption = index;
+        
+        if (this.answerFields != null)
+        {
+            for (answer in this.answerFields)
+            {
+                if (answer.visible)
+                {
+                    answer.textColor = COLOR_ANSWER;
+                }
+            }
+        }
+        
         if (index >= 0)
         {
             this.optionPointer.visible = true;
@@ -104,6 +116,7 @@ class VerbalTreeOpenFL extends Sprite
             // offset
             this.optionPointer.x += - this.optionPointer.width - 2;
             this.optionPointer.y += - this.optionPointer.height/2 + 2;
+            this.answerFields[index].textColor = COLOR_ANSWER_HIGHLIGHT;
         } else
         {
             this.optionPointer.visible = false;
@@ -129,7 +142,6 @@ class VerbalTreeOpenFL extends Sprite
         if (isAnswer)
         {
             textField.addEventListener(MouseEvent.MOUSE_OVER,onAnswerMouseEvent);
-            textField.addEventListener(MouseEvent.MOUSE_OUT,onAnswerMouseEvent);
             textField.addEventListener(MouseEvent.CLICK,onAnswerMouseEvent);
         }
 
@@ -209,9 +221,7 @@ class VerbalTreeOpenFL extends Sprite
             case MouseEvent.MOUSE_OVER:
                 cast(e.target,TextField).textColor = COLOR_ANSWER_HIGHLIGHT;
                 var answerID:Int = getAnswerTextFieldID(cast(e.target,TextField));
-                setOptionSelected( answerID );
-            case MouseEvent.MOUSE_OUT:
-                cast(e.target,TextField).textColor = COLOR_ANSWER;
+                setOptionSelected( answerID );            
             case MouseEvent.CLICK:
                 var answerID:Int = getAnswerTextFieldID(cast(e.target,TextField));
                 this.onAnswerSelected(answerID);
