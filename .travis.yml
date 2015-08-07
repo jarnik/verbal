@@ -13,9 +13,7 @@ install:
 script:
     
   - haxelib run lime build haxe/exampleFlixel neko -Dlegacy
-  # swf 11 because of Travis CI:
-  # /home/travis/haxelib/flixel/3,3,11/flixel/input/gamepad/FlxGamepadManager.hx:257: characters 33-60 : Accessing this field requires flash version 11.8 (use -swf-version 11.8)
-  - haxelib run lime build haxe/exampleFlixel flash -Dlegacy -swf-version 11.8
+  - haxelib run lime build haxe/exampleFlixel flash -Dlegacy
   - haxelib run lime build haxe/exampleOpenFL neko -Dlegacy
   - haxelib run lime build haxe/exampleOpenFL flash -Dlegacy
   
