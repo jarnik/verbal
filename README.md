@@ -5,7 +5,7 @@ It is meant to be a tiny tool for gamejams and smaller projects.
 
 ### How it works ###
 
-Use the [editor](http://jarnik.itch.io/verbal) to create the conversation and export it to a JSON file like this:
+Use the [editor](http://jarnik.itch.io/verbal) to write the conversation and export it to a JSON file like this:
 ```json
 [
    {"actions":["So what do you want?"],"id":1,"links":[2,3],"x":336,"y":6},
