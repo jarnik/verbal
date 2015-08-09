@@ -12,9 +12,9 @@ public class VerbalTreeUI : MonoBehaviour
     public Text m_Text;
     public RectTransform m_PointerRect;
     public VerbalTreeAnswerLine m_AnswerTemplate;
-    public Color COLOR_TEXT; // = 0xFFFFFF;
-    public Color COLOR_ANSWER; // = 0xD461E8;
-    public Color COLOR_ANSWER_HIGHLIGHT; // = 0xFFFFFF;
+    public Color COLOR_TEXT;
+    public Color COLOR_ANSWER;
+    public Color COLOR_ANSWER_HIGHLIGHT;
 
     private List<VerbalTreeAnswerLine> m_AnswerFields;
 
@@ -70,6 +70,7 @@ public class VerbalTreeUI : MonoBehaviour
         answerGameObject.transform.position = this.m_AnswerTemplate.transform.position;
 
         VerbalTreeAnswerLine answer = answerGameObject.GetComponent<VerbalTreeAnswerLine>();
+        answer.m_RectTransform.localScale = this.m_AnswerTemplate.m_RectTransform.localScale;
         answer.m_OnMouseEntered = this.onMouseOver;
         answer.m_OnMouseClicked = this.onMouseClick;
         answer.m_OnSelected = this.onOptionSelected;

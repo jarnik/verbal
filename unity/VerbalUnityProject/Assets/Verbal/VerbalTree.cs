@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class VerbalTree
 {
@@ -30,67 +31,62 @@ public class VerbalTree
         this.m_NodeEnteredCallback = nodeEnteredCallback;
     }
 
-    
     public void startConversation()
     {
         enterNode(0);
     }
-
     
     public void onContinue(int answerIndex = -1)
     {
-        /*
         // nextLinks must be null or continue valid next nodes
-        trace("onContinue node "+this.currentNode+" answer "+answerIndex+" action "+this.currentAction);
+        Debug.Log("onContinue node "+this.m_CurrentNode+" answer "+answerIndex+" action "+this.m_CurrentAction);
 
         // make step
-        if (this.nextLinks != null)
+        if (this.m_NextLinks != null)
         {
-            if (answerIndex >= this.nextLinks.length || this.nextLinks[answerIndex] == -1)
+            if (answerIndex >= this.m_NextLinks.Length || this.m_NextLinks[answerIndex] == -1)
             {                
                 onConversationEnded();
                 return;
             }
 
-            trace("following link to "+this.nextLinks[answerIndex]);
-            enterNode(this.nextLinks[answerIndex], this.showingAnswers);
+            Debug.Log("following link to "+this.m_NextLinks[answerIndex]);
+            enterNode(this.m_NextLinks[answerIndex], this.m_ShowingAnswers);
             return;
         }
 
         nextAction();
-         * */
     }
 
     public void onAnswerSelected(int index)
     {
-        //onContinue(index);
+        onContinue(index);
     }
     
     private int[] getNextNodes(int nodeID, bool justOne = false)
     {
-        /*
-        var nodes:Array<Int> = [];
-        var node:VerbalNode = data.getNode(nodeID);
-        var linkedNode:VerbalNode;
-        var linkedNodes:Array<Int>;
-        var condsValid:Bool;
+        List<int> nodes = new List<int>();
+        VerbalNode node = this.m_Data.getNode(nodeID);
+        VerbalNode linkedNode;
+        int[] linkedNodes;
+        bool condsValid;
 
         if (node.links != null)
         {
-            for (link in node.links)
+            foreach (int link in node.links)
             {
-                linkedNode = data.getNode(link);
+                linkedNode = this.m_Data.getNode(link);
                 if (linkedNode == null)
                 {
                     continue;
                 }
 
-                if (this.onTestCondCallback != null && linkedNode.conds != null)
+                if (this.m_TestCondCallback != null && linkedNode.conds != null)
                 {
                     condsValid = true;
-                    for (cond in linkedNode.conds)
+                    foreach (string cond in linkedNode.conds)
                     {
-                        if (!this.onTestCondCallback(cond))
+                        if (!this.m_TestCondCallback(cond))
                         {
                             condsValid = false;
                             break;
@@ -105,10 +101,10 @@ public class VerbalTree
                 if (linkedNode.group)
                 {
                     linkedNodes = getNextNodes(link, justOne);
-                    nodes = nodes.concat( linkedNodes );
+                    nodes.AddRange( linkedNodes );
                 } else
                 {
-                    nodes.push(link);
+                    nodes.Add(link);
                 }
                 if (justOne)
                 {
@@ -117,10 +113,7 @@ public class VerbalTree
             }
         }
 
-        return nodes;
-         * */
-
-        return null;
+        return nodes.ToArray();
     }
     
     private void enterNode(int nodeIndex, bool instantStep = false)
@@ -154,55 +147,58 @@ public class VerbalTree
     
     private void nextAction()
     {
-        /*
         // process node
-        this.currentAction++;
-        trace("processing node "+this.currentNode+" action "+this.currentAction);
-        var node:VerbalNode = data.getNode(this.currentNode);
-        var answers:Array<String> = null;
-        if (this.currentAction < node.actions.length - 1 )
+        this.m_CurrentAction++;
+        Debug.Log("processing node "+this.m_CurrentNode+" action "+this.m_CurrentAction);
+        VerbalNode node= this.m_Data.getNode(this.m_CurrentNode);
+        List<string> answers = null;
+        if (this.m_CurrentAction < node.actions.Count - 1 )
         {
             // non-last actions
-            this.nextLinks = null;
+            this.m_NextLinks = null;
         } else
         {
             // last action in the node, fetch links
-            var nextNodeIDs:Array<Int> = getNextNodes(this.currentNode);
+            int[] nextNodeIDs = getNextNodes(this.m_CurrentNode);
 
-            trace("fetched links "+nextNodeIDs.length+", processing...");
-            var nextNode:VerbalNode;
-            var answer:String;
-            answers = [];
-            this.nextLinks = [];
-            for (nextNodeID in nextNodeIDs)
+            Debug.Log("fetched links "+nextNodeIDs.Length+", processing...");
+            VerbalNode nextNode;
+            answers = new List<string>();
+            List<int> nextLinks = new List<int>();
+            foreach (int nextNodeID in nextNodeIDs)
             {
-                nextNode = data.getNode(nextNodeID);
-                if (nextNode.conds != null && nextNode.conds.length > 0)
+                nextNode = this.m_Data.getNode(nextNodeID);
+                if (nextNode.conds != null && nextNode.conds.Count > 0)
                 {
-                    answers.push(nextNode.conds[0]);
-                    this.nextLinks.push(nextNodeID);
+                    answers.Add(nextNode.conds[0]);
+                    nextLinks.Add(nextNodeID);
                 }
             }
-            if (answers.length == 0)
+            if (answers.Count == 0)
             {
                 // no answer links, simple continue hop
-                if (nextNodeIDs.length > 0)
+                if (nextNodeIDs.Length > 0)
                 {
-                    this.nextLinks = [nextNodeIDs[0]];
+                    nextLinks = new List<int>(){nextNodeIDs[0]};
                 } else 
                 {
-                    this.nextLinks = [-1]; // will end conversation
+                    nextLinks = new List<int>(){-1}; // will end conversation
                 }
                 answers = null;
             } else
             {
-                this.showingAnswers = true;
+                this.m_ShowingAnswers = true;
             }
+            this.m_NextLinks = nextLinks.ToArray();
         }
 
         // action with continue
-        this.onShowNodeCallback(node.actions[this.currentAction], answers);
-         * */
+        string[] answersArray = null;
+        if (answers != null)
+        {
+            answersArray = answers.ToArray();
+        }
+        this.m_ShowNodeCallback(node.actions[this.m_CurrentAction], answersArray);
     }
 
     private void onConversationEnded()
