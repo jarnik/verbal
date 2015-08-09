@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -10,20 +11,10 @@ public class ExampleVerbalUnity : MonoBehaviour
 
 	private VerbalTree m_Conversation;
 
-    /*
-    // HScript
-    private var parser:Parser;
-	private var interpret:Interp;
-     * */
 	private Dictionary<int,int> m_VisitCounter;
 
 	private void Start () 
 	{
-        /*
-		this.parser = new Parser();
-		this.interpret = new Interp();
-        this.interpret.variables.set("visited", this.Hvisited);
-         * */
         this.m_VisitCounter = new Dictionary<int, int>();
 
 		this.m_Conversation = new VerbalTree(
@@ -38,23 +29,18 @@ public class ExampleVerbalUnity : MonoBehaviour
         this.m_Conversation.startConversation();
 	}
 
-    /*
-    //////////// HScript /////////////////////////////////////////
-    */
     private bool testCond(string cond)
     {
-        /*
-		// Hscript conditions start with #
-		if (!StringTools.startsWith(cond,"#"))
-		{
-			return true;
-		}
-		cond = cond.substr(1);
-        trace("test "+cond);
-        var result = this.interpret.execute(this.parser.parseString(cond));
-		var resultBool:Bool = cast(result,Bool);
-        trace("= "+resultBool);
-        return resultBool;*/
+        // proper script interpreter integration (LUA etc.) is beyond the scope of this example
+        // simply match just a single command - "#visited(nodeID)>visitCount"
+        Regex regex = new Regex(@"#visited\((\d+)\)>(\d+)");
+        Match match = regex.Match(cond);
+        if (match.Success)
+        {
+            int nodeID = int.Parse(match.Groups[1].ToString());
+            int visitCount = int.Parse(match.Groups[2].ToString());
+            return this.visited(nodeID) > visitCount;
+        }
 
         return true;
     }
@@ -69,7 +55,7 @@ public class ExampleVerbalUnity : MonoBehaviour
 		Debug.Log("Entered "+node+" = "+this.m_VisitCounter[node]);
     }
     
-    private int Hvisited(int node)
+    private int visited(int node)
     {
         if (this.m_VisitCounter.ContainsKey(node))
         {

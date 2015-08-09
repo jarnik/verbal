@@ -18,9 +18,6 @@ public class VerbalTreeUI : MonoBehaviour
 
     private List<VerbalTreeAnswerLine> m_AnswerFields;
 
-    private int m_SelectedOption = 0;
-    private int m_OptionCount = 0;
-
     public AnswerCallback m_OnAnswerSelected;
 
     private void Awake()
@@ -33,8 +30,6 @@ public class VerbalTreeUI : MonoBehaviour
     
     private void setOptionSelected(int index, bool forceSelect = true)
     {
-        this.m_SelectedOption = index;
-        
         if (this.m_AnswerFields != null)
         {
             foreach (VerbalTreeAnswerLine answer in this.m_AnswerFields)
@@ -162,7 +157,6 @@ public class VerbalTreeUI : MonoBehaviour
         {
             // show continue button
             setAnswerField(0, offset, "(continue)");
-            this.m_OptionCount = 0;
         } else
         {
             // show answers
@@ -170,7 +164,6 @@ public class VerbalTreeUI : MonoBehaviour
             {
                 offset = setAnswerField(i, offset, answers[i]);
             }
-            this.m_OptionCount = answers.Length;
         }
         setOptionSelected(0);
     }

@@ -32,6 +32,14 @@ public class VerbalData
         this.globalNodes = globalNodesList.ToArray();
     }
 
+    public VerbalNode[] nodes
+    {
+        get
+        {
+            return this.data;
+        }
+    }
+
     public VerbalNode getNode(int id)
     {
         if (this.nodeMap.ContainsKey(id))
