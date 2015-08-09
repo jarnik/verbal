@@ -1,3 +1,8 @@
 haxe/exampleFlixel/bin
 haxe/exampleOpenFL/bin
 *.meta
+unity/VerbalUnityProject/Assembly-*
+unity/VerbalUnityProject/Library*
+unity/VerbalUnityProject/Temp*
+unity/VerbalUnityProject/obj*
+unity/VerbalUnityProject/Verbal*
