@@ -1,5 +1,7 @@
 package verbal;
 
+import verbal.VerbalData;
+
 class VerbalIntFic
 {
 
