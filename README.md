@@ -25,6 +25,8 @@ Conversation tree example:
 
 ![Tree Conversation Example](images/screenshot_treeExample.png)
 
+Used font: http://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=381
+
 ### Editor ###
 
 Get it here (**Linux, Windows, Flash**): http://jarnik.itch.io/verbal
