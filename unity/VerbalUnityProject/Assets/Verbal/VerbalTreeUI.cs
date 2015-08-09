@@ -1,18 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 
 public class VerbalTreeUI : MonoBehaviour 
 {
 
-    private int COLOR_TEXT = 0xFFFFFF;
-    private int COLOR_ANSWER = 0xD461E8;
-    private int COLOR_ANSWER_HIGHLIGHT = 0xFFFFFF;
-
     public Text m_Text;
-    public RectTransform m_OptionPointerRectTransform;
+    public RectTransform m_PointerRect;
     public VerbalTreeAnswerLine m_AnswerTemplate;
+    public Color COLOR_TEXT; // = 0xFFFFFF;
+    public Color COLOR_ANSWER; // = 0xD461E8;
+    public Color COLOR_ANSWER_HIGHLIGHT; // = 0xFFFFFF;
+
     private List<VerbalTreeAnswerLine> m_AnswerFields;
 
     private int m_SelectedOption = 0;
@@ -29,9 +30,11 @@ public class VerbalTreeUI : MonoBehaviour
     {
         super ();*/
 
-    private void Start()
+    private void Awake()
     {
-        setOptionSelected(-1);
+        this.m_AnswerTemplate.gameObject.SetActive(false);
+        //EventSystem.current.firstSelectedGameObject = this.m_AnswerTemplate.gameObject;
+        //setOptionSelected(-1);
 
         //this.onContinueCallback = onContinueCallback;
         //this.onAnswerSelected = onAnswerSelected;
@@ -69,69 +72,68 @@ public class VerbalTreeUI : MonoBehaviour
         }
     }
     */
-    private void setOptionSelected(int index)
+    private void setOptionSelected(int index, bool forceSelect = true)
     {
-        /*
-        this.selectedOption = index;
+        this.m_SelectedOption = index;
         
-        if (this.answerFields != null)
+        if (this.m_AnswerFields != null)
         {
-            for (answer in this.answerFields)
+            foreach (VerbalTreeAnswerLine answer in this.m_AnswerFields)
             {
-                if (answer.visible)
+                if (answer.gameObject.activeSelf)
                 {
-                    answer.setFormat(null, 8, COLOR_ANSWER);
+                    answer.m_Textfield.color = COLOR_ANSWER;
                 }
             }
         }
-        
+
+        this.m_PointerRect.gameObject.SetActive(index >= 0);
+
+        if (forceSelect)
+        {
+            EventSystem.current.SetSelectedGameObject(index >= 0 ? this.m_AnswerFields[index].gameObject : null);
+        }
+       
         if (index >= 0)
         {
-            this.optionPointer.visible = true;
-            this.optionPointer.x = this.answerFields[index].x;
-            this.optionPointer.y = this.answerFields[index].y - 2;
-            // offset
-            this.optionPointer.x += - this.optionPointer.width - 2;
-            this.answerFields[index].setFormat(null, 8, COLOR_ANSWER_HIGHLIGHT);
-        } else
-        {
-            this.optionPointer.visible = false;
-        }*/
-    }
-    /*
-    private function createTextfield(isAnswer:Bool = false) : FlxText
-    {
-        var textField:FlxText = new FlxText();
-        textField.setFormat(null,8,0xffffff);
-        var margin:Float = 8;
-        textField.x = margin;
-        textField.y = margin;
-        textField.fieldWidth = this.windowWidth - 2*margin;
-        textField.wordWrap = true;
-        this.add(textField);
-
-        if (isAnswer)
-        {
-            MouseEventManager.add( textField, onMouseClick, null, onMouseOver );
+            this.m_PointerRect.anchoredPosition = new Vector2(
+                this.m_PointerRect.anchoredPosition.x,
+                this.m_AnswerFields[index].m_RectTransform.anchoredPosition.y - 16.0f
+            );
+            this.m_AnswerFields[index].m_Textfield.color = COLOR_ANSWER_HIGHLIGHT;
         }
+    }
+    
+    private VerbalTreeAnswerLine createTextfield()
+    {
+        GameObject answerGameObject = GameObject.Instantiate(this.m_AnswerTemplate.gameObject);
+        answerGameObject.transform.SetParent(this.m_AnswerTemplate.transform.parent);
+        answerGameObject.transform.position = this.m_AnswerTemplate.transform.position;
 
-        return textField;
+        VerbalTreeAnswerLine answer = answerGameObject.GetComponent<VerbalTreeAnswerLine>();
+        answer.m_OnMouseEntered = this.onMouseOver;
+        answer.m_OnMouseClicked = this.onMouseClick;
+        answer.m_OnSelected = this.onOptionSelected;
+        return answer;
     }
     
-    private function onMouseOver(tf:FlxText) : Void
+    private void onMouseOver(int answerID)
     {
-        var answerID:Int = getAnswerTextFieldID(tf);
-        trace("OVER "+answerID);
-        setOptionSelected( answerID );
+        Debug.Log("OVER "+answerID);
+        setOptionSelected( answerID);
     }
     
-    private function onMouseClick(tf:FlxText) : Void
+    private void onMouseClick(int answerID)
     {
-        var answerID:Int = getAnswerTextFieldID(tf);
-        trace("CLICK "+answerID);
-        this.onAnswerSelected(answerID);
+        Debug.Log("CLICK "+answerID);
+        //this.onAnswerSelected(answerID);
     }
-    */
+
+    private void onOptionSelected(int answerID)
+    {
+        Debug.Log("CLICK " + answerID);
+        setOptionSelected(answerID,false);
+    }
 
     private void hideAllAnswers()
     {
@@ -143,25 +145,41 @@ public class VerbalTreeUI : MonoBehaviour
 
     private float setAnswerField(int index, float offset, string text)
     {
-    /*
-        var answer:FlxText;
-        if (index >= this.answerFields.length)
+    
+        VerbalTreeAnswerLine answer;
+        if (index >= this.m_AnswerFields.Count)
         {
-            answer = createTextfield(true);
-            this.answerFields.push(answer);
+            answer = createTextfield();
+            this.m_AnswerFields.Add(answer);
         } else
         {
-            answer = this.answerFields[index];
+            answer = this.m_AnswerFields[index];
         }
 
-        answer.visible = true;
-        answer.x = 20;
-        answer.width = this.windowWidth - answer.x - 15;
-        answer.y = offset;
-        answer.text = text;
-        answer.height = 9;
-        offset += 12;
-    */
+        answer.gameObject.SetActive(true);
+        answer.m_RectTransform.anchoredPosition = new Vector2(
+            answer.m_RectTransform.anchoredPosition.x,
+            -offset
+        );
+        answer.m_Textfield.text = text;
+        answer.m_Index = index;
+        answer.name = "Answer " + (index + 1).ToString();
+        Navigation navigation;
+        navigation = new Navigation();
+        navigation.mode = Navigation.Mode.Explicit;
+        if (index > 0)
+        {
+            navigation.selectOnUp = this.m_AnswerFields[index - 1].m_Button;
+        }
+        answer.m_Button.navigation = navigation;
+        if (index > 0)
+        {
+            navigation = this.m_AnswerFields[index - 1].m_Button.navigation;
+            navigation.selectOnDown = answer.m_Button;
+            this.m_AnswerFields[index - 1].m_Button.navigation = navigation;
+        }
+
+        offset += answer.m_Textfield.preferredHeight + 8;
         return offset;
     }
 
@@ -176,11 +194,10 @@ public class VerbalTreeUI : MonoBehaviour
         
         this.m_Text.text = text;
 
-        float offset = this.m_Text.rectTransform.anchoredPosition.y + this.m_Text.preferredHeight;
+        float offset = -this.m_Text.rectTransform.anchoredPosition.y + this.m_Text.preferredHeight + 16;
 
         hideAllAnswers();
 
-        VerbalTreeAnswerLine answer;
         if (answers == null)
         {
             // show continue button
@@ -197,19 +214,5 @@ public class VerbalTreeUI : MonoBehaviour
         }
         setOptionSelected(0);
     }
-    /*
-    private function getAnswerTextFieldID(tf:FlxText) : Int
-    {
-        for (i in 0...this.answerFields.length)
-        {
-            if (tf == this.answerFields[i])
-            {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-     */
 
 }
