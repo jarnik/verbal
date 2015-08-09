@@ -19,8 +19,6 @@ public class ExampleVerbalUnity : MonoBehaviour
 
 	private void Start () 
 	{
-        //this.m_VerbalUI.show("EXAMPLE\n text", new string[] { "AAA", "BBB" });
-
         /*
 		this.parser = new Parser();
 		this.interpret = new Interp();
@@ -28,14 +26,6 @@ public class ExampleVerbalUnity : MonoBehaviour
          * */
         this.m_VisitCounter = new Dictionary<int, int>();
 
-
-        /*
-		this.add(this.ui = new VerbalTreeFlixel(
-			this.onContinueClicked,
-			this.onAnswerSelected
-		));
-		FlxG.plugins.add(new MouseEventManager());
-		*/
 		this.m_Conversation = new VerbalTree(
 			VerbalData.loadFromJSON(this.m_ConversationJson.ToString()),
 			this.m_VerbalUI.show,
@@ -43,22 +33,12 @@ public class ExampleVerbalUnity : MonoBehaviour
 			this.onNodeEntered
 		);
 
+        this.m_VerbalUI.m_OnAnswerSelected = this.m_Conversation.onAnswerSelected;
 
         this.m_Conversation.startConversation();
-        
 	}
 
     /*
-	private function onContinueClicked() : Void
-	{
-		this.conversation.onContinue();
-	}
-
-	private function onAnswerSelected(index:Int) : Void
-	{
-		this.conversation.onAnswerSelected(index);
-	}
-
     //////////// HScript /////////////////////////////////////////
     */
     private bool testCond(string cond)
@@ -81,25 +61,21 @@ public class ExampleVerbalUnity : MonoBehaviour
 
     private void onNodeEntered(int node)
     {
-        /*
-        if (!this.visitCounter.exists(node))
+        if (!this.m_VisitCounter.ContainsKey(node))
         {
-            this.visitCounter[node] = 0;
+            this.m_VisitCounter.Add(node, 0);
         }
-        this.visitCounter[node] = this.visitCounter[node]+1;
-		trace("Entered "+node+" = "+this.visitCounter[node]);
-         * */
+        this.m_VisitCounter[node] = this.m_VisitCounter[node]+1;
+		Debug.Log("Entered "+node+" = "+this.m_VisitCounter[node]);
     }
-
-    /*
-    private function Hvisited(node:Int) : Int
+    
+    private int Hvisited(int node)
     {
-        if (this.visitCounter.exists(node))
+        if (this.m_VisitCounter.ContainsKey(node))
         {
-            return this.visitCounter[node];
+            return this.m_VisitCounter[node];
         }
         return 0;
-    }
-    */
+    }    
 
 }

@@ -33,12 +33,13 @@ public class VerbalTree
     
     public void startConversation()
     {
-        //enterNode(0);
+        enterNode(0);
     }
 
-    /*
-    public function onContinue(answerIndex:Int = -1) : Void
+    
+    public void onContinue(int answerIndex = -1)
     {
+        /*
         // nextLinks must be null or continue valid next nodes
         trace("onContinue node "+this.currentNode+" answer "+answerIndex+" action "+this.currentAction);
 
@@ -57,15 +58,17 @@ public class VerbalTree
         }
 
         nextAction();
+         * */
     }
 
-    public function onAnswerSelected(index:Int) : Void
+    public void onAnswerSelected(int index)
     {
-        onContinue(index);
+        //onContinue(index);
     }
-
-    private function getNextNodes(nodeID:Int, justOne:Bool = false):Array<Int>
+    
+    private int[] getNextNodes(int nodeID, bool justOne = false)
     {
+        /*
         var nodes:Array<Int> = [];
         var node:VerbalNode = data.getNode(nodeID);
         var linkedNode:VerbalNode;
@@ -115,25 +118,28 @@ public class VerbalTree
         }
 
         return nodes;
-    }
+         * */
 
-    private function enterNode(nodeIndex:Int, instantStep:Bool = false) : Void
+        return null;
+    }
+    
+    private void enterNode(int nodeIndex, bool instantStep = false)
     {
-        if (this.onNodeEnteredCallback != null)
+        if (this.m_NodeEnteredCallback != null)
         {
-            this.onNodeEnteredCallback(nodeIndex);
+            this.m_NodeEnteredCallback(nodeIndex);
         }
 
-        this.currentNode = nodeIndex;
-        this.currentAction = -1;
-        this.showingAnswers = false;
+        this.m_CurrentNode = nodeIndex;
+        this.m_CurrentAction = -1;
+        this.m_ShowingAnswers = false;
 
-        var node:VerbalNode = data.getNode(nodeIndex);
+        VerbalNode node = this.m_Data.getNode(nodeIndex);
 
         if (node.group || instantStep)
         {
-            var nextNodes:Array<Int> = getNextNodes(this.currentNode, true);
-            if (nextNodes.length > 0)
+            int[] nextNodes = getNextNodes(this.m_CurrentNode, true);
+            if (nextNodes.Length > 0)
             {
                 enterNode(nextNodes[0]);
             } else
@@ -145,9 +151,10 @@ public class VerbalTree
 
         nextAction();
     }
-
-    private function nextAction() : Void
+    
+    private void nextAction()
     {
+        /*
         // process node
         this.currentAction++;
         trace("processing node "+this.currentNode+" action "+this.currentAction);
@@ -195,15 +202,13 @@ public class VerbalTree
 
         // action with continue
         this.onShowNodeCallback(node.actions[this.currentAction], answers);
-    }
-    
-    private function onConversationEnded() : Void
-    {
-        trace("THE END!");
-        this.onShowNodeCallback(null, null);
+         * */
     }
 
- 
-    */
+    private void onConversationEnded()
+    {
+        Debug.Log("THE END!");
+        this.m_ShowNodeCallback(null, null);
+    }
 
 }

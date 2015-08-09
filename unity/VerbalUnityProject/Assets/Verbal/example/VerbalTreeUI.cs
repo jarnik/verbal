@@ -21,60 +21,16 @@ public class VerbalTreeUI : MonoBehaviour
     private int m_SelectedOption = 0;
     private int m_OptionCount = 0;
 
-    public AnswerCallback m_OnContinueCallback;
     public AnswerCallback m_OnAnswerSelected;
-
-    /*
-
-    public function new (
-        onContinueCallback : Void->Void,
-        onAnswerSelected : Int->Void
-    )
-    {
-        super ();*/
 
     private void Awake()
     {
         this.m_AnswerTemplate.gameObject.SetActive(false);
-        //EventSystem.current.firstSelectedGameObject = this.m_AnswerTemplate.gameObject;
-        //setOptionSelected(-1);
-
-        //this.onContinueCallback = onContinueCallback;
-        //this.onAnswerSelected = onAnswerSelected;
 
         //font: http://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=381
         this.m_AnswerFields = new List<VerbalTreeAnswerLine>();
     }
     
-    /*
-    public override function update():Void
-    {
-        if(FlxG.keys.justPressed.DOWN)
-        {
-            stepOptionSelected(1);
-        }
-        if(FlxG.keys.justPressed.UP)
-        {
-            stepOptionSelected(-1);
-        }
-        if(FlxG.keys.justPressed.ENTER || FlxG.keys.justPressed.SPACE)
-        {
-            this.onAnswerSelected(this.selectedOption);
-        }
-        super.update();
-    }
-
-    private function stepOptionSelected(step:Int) : Void
-    {
-        if (
-            this.selectedOption + step >= 0 &&
-            this.selectedOption + step < this.optionCount
-        )
-        {
-            setOptionSelected(this.selectedOption + step);
-        }
-    }
-    */
     private void setOptionSelected(int index, bool forceSelect = true)
     {
         this.m_SelectedOption = index;
@@ -129,7 +85,7 @@ public class VerbalTreeUI : MonoBehaviour
     private void onMouseClick(int answerID)
     {
         Debug.Log("CLICK "+answerID);
-        //this.onAnswerSelected(answerID);
+        this.m_OnAnswerSelected(answerID);
     }
 
     private void onOptionSelected(int answerID)
