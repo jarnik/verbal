@@ -1,2 +1,3 @@
 haxe/exampleFlixel/bin
 haxe/exampleOpenFL/bin
+*.meta
