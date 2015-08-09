@@ -7,6 +7,8 @@ using System.Collections.Generic;
 public class VerbalTreeUI : MonoBehaviour 
 {
 
+    public delegate void AnswerCallback(int index);
+
     public Text m_Text;
     public RectTransform m_PointerRect;
     public VerbalTreeAnswerLine m_AnswerTemplate;
@@ -19,9 +21,10 @@ public class VerbalTreeUI : MonoBehaviour
     private int m_SelectedOption = 0;
     private int m_OptionCount = 0;
 
+    public AnswerCallback m_OnContinueCallback;
+    public AnswerCallback m_OnAnswerSelected;
+
     /*
-    private var onContinueCallback : Void->Void;
-    private var onAnswerSelected : Int->Void;
 
     public function new (
         onContinueCallback : Void->Void,
@@ -131,7 +134,7 @@ public class VerbalTreeUI : MonoBehaviour
 
     private void onOptionSelected(int answerID)
     {
-        Debug.Log("CLICK " + answerID);
+        Debug.Log("SELECT " + answerID);
         setOptionSelected(answerID,false);
     }
 
