@@ -17,9 +17,9 @@ Then load the JSON into your game using the library (see the examples) or just i
 
 ### Library platforms ###
 
-Supported: OpenFL
+Supported: Haxe (OpenFL, HaxeFlixel), Unity 5
 
-Planned: HaxeFlixel, Unity, ? LOVE, ? GameMaker
+Planned: ? LOVE, ? GameMaker
 
 Conversation tree example:
 
