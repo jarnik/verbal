@@ -19,6 +19,16 @@ class VerbalData
         return new VerbalData( nodeList );
     }
 
+    public static function loadFromDynamic(json:Array<Dynamic>):VerbalData
+    {
+        var nodeList:Array<VerbalNode> = [];
+        for (d in json)
+        {
+            nodeList.push(d);
+        }
+        return new VerbalData( nodeList );
+    }
+
     private var data : Array<VerbalNode>;
     private var nodeMap : Map<Int,VerbalNode>;
     private var globalNodes : Array<VerbalNode>;
