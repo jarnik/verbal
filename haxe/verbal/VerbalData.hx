@@ -15,7 +15,11 @@ class VerbalData
 
     public static function loadFromJSON(json:String):VerbalData
     {
-        var nodeList:Array<VerbalNode> = haxe.Json.parse( json );
+        #if cursive
+            var nodeList:Array<VerbalNode> = haxe.Cson.parse( json );
+        #else
+            var nodeList:Array<VerbalNode> = haxe.Json.parse( json );
+        #end
         return new VerbalData( nodeList );
     }
 

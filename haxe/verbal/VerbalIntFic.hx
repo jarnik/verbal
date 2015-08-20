@@ -9,17 +9,17 @@ class VerbalIntFic
 	private var currentNode:Int = -1;
 
 	private var testConditionCallback:String -> Bool;
-	private var runActionCallback:String -> Void;
+	private var runActionsCallback:Array<String> -> Void;
 
 	public function new(
 		data:VerbalData,
 		testConditionCallback:String -> Bool,
-		runActionCallback:String -> Void
+		runActionsCallback:Array<String> -> Void
 	) : Void
 	{
 		this.data = data;
 		this.testConditionCallback = testConditionCallback;
-		this.runActionCallback = runActionCallback;
+		this.runActionsCallback = runActionsCallback;
 	}
 
 	public function step():Void
@@ -41,10 +41,7 @@ class VerbalIntFic
 		this.currentNode = node.id;
 		if (node.actions != null)
 		{
-			for (action in node.actions)
-			{
-				runAction(action);
-			}
+			runActions(node.actions);
 		}
 	}
 
@@ -129,12 +126,12 @@ class VerbalIntFic
 	}
 
 	// override this method to add custom code testing etc.
-	private function runAction(action:String) : Void
+	private function runActions(actions:Array<String>) : Void
 	{
-		trace("ACTION: "+action);
-		if (this.runActionCallback != null)
+		trace("ACTIONS: "+actions.length);
+		if (this.runActionsCallback != null)
 		{
-			this.runActionCallback(action);
+			this.runActionsCallback(actions);
 		}
 	}
 }
