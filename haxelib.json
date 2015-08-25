@@ -1,6 +1,6 @@
 {
 	"name": "verbal",
-	"url": "https://github.com/jarnik/lime",
+	"url": "https://github.com/jarnik/verbal",
 	"license": "MIT",
 	"tags": [],
 	"description": "node-based conversation tool",
